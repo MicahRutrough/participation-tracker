@@ -2,13 +2,32 @@
 {% block content %}
   <br>
   <div class="row">
-	<div class="small-12 column panel text-center">
+	<div class="small-12 column text-center">
 	  <h4>GRADES</h4>
 	  {% if user %}
-	    <a href="{{ sign_out }}">Sign Out</a>
+		<a href="{{ sign_out }}">Sign Out</a>
 	  {% endif %}
-	  You are {{ user }}
-	  Your grades are {{ grades }}
+	  <br><br><br>
+	  {% if grade_info %}
+		<a name="grades"></a>
+		<span class="label">Piazza Participation Grades</span>
+		<div class="small-12 columns">
+				<div class="row">
+						{% for grade in grade_info %}
+							<table>
+									<tr>
+										<th class="text-center"><h4>{{ grade[0] }}</h4></th>
+									</tr>
+									<tr>
+										<td class="text-center"><h5>{{ grade[2] }}/{{ grade[1] }}</h5></td>
+									</tr>
+							</table>
+						{% endfor %}
+		</div>
+	{% else %}
+		<h3>You don't appear to have any grades in our records...
+		If you think this is a mistake, please send an email to <b>31-manager@ics.uci.edu</b></h3>
+	{% endif %}
     </div>
   </div>
 {% endblock %}

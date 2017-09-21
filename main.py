@@ -9,7 +9,7 @@ config['webapp2_extras.sessions'] = {
 
 application = webapp2.WSGIApplication([
     ('/', landing.Main),
-    ('/grades', landing.MainPage),
+    ('/grades', landing.GradePage),
     ('/admin', admin.ViewGrades),
     ('/admin/upload', admin.UploadGrades),
 ], config=config, debug=True)
