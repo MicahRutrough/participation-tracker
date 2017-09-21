@@ -1,0 +1,30 @@
+application: participation-checker
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+  
+- url: /foundation
+  static_dir: static/foundation
+
+- url: .*
+  script: main.application
+  
+- url: /grades.*
+  login: required
+  script: main.application
+  
+- url: /admin.*
+  login: admin
+  script: main.application
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: latest

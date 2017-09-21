@@ -1,0 +1,29 @@
+{% extends 'templates/admin_common.html' %}
+{% block content %}
+
+
+<div class="row">
+
+	<div class="small-12 columns text-center">
+		<br>
+		<h3>Admin Panel</h3>
+		<br>
+	</div>
+
+	{% if message %}
+		<div class="small-12 column">
+			<div class="row text-center">
+				<div class="small-12 column">
+					<h3>{{ message }}</h3>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="small-12 columns panel">
+		You are logged in as {{ user }}
+	</div>
+
+</div>
+
+{% endblock %}

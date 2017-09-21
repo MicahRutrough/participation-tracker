@@ -1,0 +1,14 @@
+{% extends 'templates/common.html' %}
+{% block content %}
+  <br>
+  <div class="row">
+	<div class="small-12 column panel text-center">
+	  <h4>GRADES</h4>
+	  {% if user %}
+	    <a href="{{ sign_out }}">Sign Out</a>
+	  {% endif %}
+	  You are {{ user }}
+	  Your grades are {{ grades }}
+    </div>
+  </div>
+{% endblock %}
