@@ -3,30 +3,34 @@
   <br>
   <div class="row">
 	<div class="small-12 column text-center">
-	  <h4>GRADES</h4>
+	  <h4>Post Counter</h4>
+	  <h6>Note: It might take up to 24 hours for your responses to in-class Piazza questions to be reflected on this page</h6>
+	  <br><br>
 	  {% if user %}
 		<a href="{{ sign_out }}">Sign Out</a>
 	  {% endif %}
 	  <br><br><br>
 	  {% if grade_info %}
 		<a name="grades"></a>
-		<span class="label">Piazza Participation Grades</span>
+		<span class="label">In-Class Question Responses</span>
 		<div class="small-12 columns">
 				<div class="row">
 						{% for grade in grade_info %}
-							<table>
+							<table style="background-color:{% if current_datetime < grade[3] %} #ffffff {% else %} #dddddd {% endif %}">
+									<tr style="background-color:{% if current_datetime < grade[3] %} #ffffff {% else %} #dddddd {% endif %}">
+										<th class="text-center"><h5 style="color:{% if current_datetime < grade[3] %} #000000 {% else %} #777777 {% endif %}">{{ grade[0] }} {% if current_datetime > grade[3] %} (PAST DUE) {% endif %}</h5></th>
+									</tr style="background-color:{% if current_datetime < grade[3] %} #ffffff {% else %} #dddddd {% endif %}">
 									<tr>
-										<th class="text-center"><h4>{{ grade[0] }}</h4></th>
-									</tr>
-									<tr>
-										<td class="text-center"><h5>{{ grade[2] }}/{{ grade[1] }}</h5></td>
+										<td class="text-center"><h6 style="color:{% if current_datetime < grade[3] %} #000000 {% else %} #777777 {% endif %}">{{ grade[2] }}/{{ grade[1] }}</h6></td>
 									</tr>
 							</table>
 						{% endfor %}
 		</div>
 	{% else %}
-		<h3>You don't appear to have any grades in our records...
-		If you think this is a mistake, please send an email to <b>31-manager@ics.uci.edu</b></h3>
+		<h3>We don't have any record of your in-class Piazza question responses.</h3>
+		Note that it might take up to 24 hours for your responses to be reflected here.
+		<br><br><br>
+		If you think this is a mistake, please send an email to <b>31-manager@ics.uci.edu</b>
 	{% endif %}
     </div>
   </div>

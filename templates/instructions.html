@@ -1,0 +1,26 @@
+{% extends 'templates/common.html' %}
+{% block content %}
+
+  <br>
+
+  <div class="row">
+	  <div class="small-12 columns text-center">
+	  	<h4>Usage Instructions</h4>
+	  </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+	<div class="small-12 column panel text-center">
+	  <div class="row">
+	    <div class="small-10 column small-offset-1 text-justify">
+			<p>This app is used to count your responses to in-class Piazza questions. First you must log in using your uci email address, otherwise we won't be able to locate your posts.</p>
+			<p>After logging in, you should see the main screen, which shows panels in chronological order from top to bottom. Each of these panels has the date of the class when the questions are due, and below your current score, expressed in (number of questions answered)/(total questions).</p>
+			<p>If the panel is grayed out, its deadline has passed and answering the question will no longer give you credit.</p>
+			<p>Keep in mind that it can take up to 24 hours for changes to be reflected on the app, so don't panic if your score doesn't show up right away.</p>
+	    </div>
+	  </div>
+	</div>
+  </div>
+{% endblock %}

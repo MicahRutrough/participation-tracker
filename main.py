@@ -1,6 +1,6 @@
 import webapp2
 import sys
-from src.controllers import landing
+from src.controllers import main
 from src.controllers import admin
 config = {}
 config['webapp2_extras.sessions'] = {
@@ -8,8 +8,9 @@ config['webapp2_extras.sessions'] = {
 }
 
 application = webapp2.WSGIApplication([
-    ('/', landing.Main),
-    ('/grades', landing.GradePage),
+    ('/', main.Main),
+    ('/grades', main.GradePage),
     ('/admin', admin.ViewGrades),
     ('/admin/upload', admin.UploadGrades),
+    ('/instructions', main.Help),
 ], config=config, debug=True)

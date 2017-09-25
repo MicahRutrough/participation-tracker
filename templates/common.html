@@ -12,20 +12,13 @@
 			<ul class="title-area">
 				<li class="name">
 					{% if user %}
-						<h1><a href="/grades">Participation Checker</a></h1>
+						<h1><a href="/grades">Post Counter</a></h1>
 					{% else %}
-						<h1><a href="/">Participation Checker</a></h1>
+						<h1><a href="/">Post Counter</a></h1>
 					{% endif %}
 				</li>
 			</ul>
 			<section class="top-bar-section">
-				{% if user %}
-					<!--<ul class="left">
-						<li>
-                        <a href="/partner/edit/profile">Profile</a>
-						</li>
-					</ul>-->
-				{% endif %}
 				<ul class="right">
 					{% if sign_out %}
 						<li class="active">

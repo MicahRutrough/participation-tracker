@@ -36,20 +36,13 @@ class UploadGrades(BaseHandler):
             for row in file:
                 row = row.replace('"','').strip().split(',')
                 dataid = row[0]
-                if dataid == "ucinetid":
-                    header = StudentGradesModel.get_grades_by_id(dataid)
-                    if header == None:
-                        header = StudentGrades()
-                        header.ucinetid = dataid
-                    header.grades = map(lambda x: x[:10], row[1:])
-                    header.put()
-                elif dataid == "TOTAL":
-                    total = StudentGradesModel.get_grades_by_id(dataid)
-                    if total == None:
-                        total = StudentGrades()
-                        total.ucinetid=dataid
-                    total.grades = row[1:]
-                    total.put()
+                if dataid == "ucinetid" or dataid == "TOTAL":
+                    info = StudentGradesModel.get_grades_by_id(dataid)
+                    if info == None:
+                        info = StudentGrades()
+                        info.ucinetid=dataid
+                    info.grades = row[1:]
+                    info.put()
                 else:
                     if dataid not in existing_grades:
                         new_grades = StudentGrades()
