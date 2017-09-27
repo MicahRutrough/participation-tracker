@@ -12,5 +12,6 @@ application = webapp2.WSGIApplication([
     ('/grades', main.GradePage),
     ('/admin', admin.ViewGrades),
     ('/admin/upload', admin.UploadGrades),
+    ('/admin/settings', admin.ChangeSettings),
     ('/instructions', main.Help),
 ], config=config, debug=True)

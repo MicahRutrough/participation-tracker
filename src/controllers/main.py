@@ -7,9 +7,10 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from webapp2_extras.appengine.users import login_required
 
-from models import StudentGrades
+from models import StudentGrades, Settings
 from src.handler.base_handler import BaseHandler
 from src.models.studentgrades import StudentGradesModel
+from src.models.settings import SettingsModel
 
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname('app.yaml')),
@@ -22,11 +23,21 @@ class GradePage(BaseHandler):
     @login_required
     def get(self):
 
+        settings = SettingsModel.get_current_settings()
+        if settings == None:
+            QUARTER = 0
+            YEAR = 0
+            COURSE = ""
+        else:
+            QUARTER = settings.quarter
+            YEAR = settings.year
+            COURSE = settings.course
+
         current_datetime = datetime.datetime(2000,01,01).now()+datetime.timedelta(hours=TIME_DELTA)
         user = users.get_current_user()
-        headers = StudentGradesModel.get_grade_headers()
-        totals =  StudentGradesModel.get_total_grades()
-        grades =  StudentGradesModel.get_grades_by_id(str(user).split("@")[0])
+        headers = StudentGradesModel.get_grade_headers(QUARTER,YEAR,COURSE)
+        totals =  StudentGradesModel.get_total_grades(QUARTER,YEAR,COURSE)
+        grades =  StudentGradesModel.get_grades_by_id(str(user).split("@")[0],QUARTER,YEAR,COURSE)
         try:
             dates = map(lambda x: datetime.datetime(2000,01,01).strptime(x, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=TIME_DELTA),headers.grades)
             grade_info = zip(map(lambda x: ((datetime.datetime(2000,01,01).strptime(x, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=TIME_DELTA)).strftime("%A, %B %d, %Y at %I:%M %p")),headers.grades),totals.grades,grades.grades,dates)

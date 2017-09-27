@@ -1,0 +1,42 @@
+{% extends 'templates/admin_common.html' %}
+{% block content %}
+<div class="row">
+	<h2 class="text-center">Settings</h3>
+	{% if message %}
+		<div class="small-12 columns">
+			<h3 class="text-center"> {{ message }}</h3>
+		</div>
+	{% endif %}
+	{% if settings %}
+		<h4 class="text-center">{{ settings.course }} {{ ref[settings.quarter] }} quarter {{ settings.year }}</h4>
+	{% else %}
+		<h4 class="text-center">No settings have been found for this quarter</h4>
+	{% endif %}
+	<form action="/admin/settings" method="post" enctype="multipart/form-data">
+	<div class="small-12 columns">
+	  <select style="width:20%; margin: 0 auto;" name="quarter">
+		<option value="0" {% if settings %} {% if settings.quarter == 0 %} selected = "selected" {% endif %} {% endif %}>Fall</option>
+		<option value="1" {% if settings %} {% if settings.quarter == 1 %} selected = "selected" {% endif %} {% endif %}>Winter</option>
+		<option value="2" {% if settings %} {% if settings.quarter == 2 %} selected = "selected" {% endif %} {% endif %}>Spring</option>
+		<option value="3" {% if settings %} {% if settings.quarter == 3 %} selected = "selected" {% endif %} {% endif %}>Summer</option>
+	  </select>
+	  <br>
+	  <br>
+	  <br>
+	  <input style="width:20%;" name="year" type="number" {% if settings %} value={{ settings.year }} {% else %} value = "2017" {% endif %}>
+	  <input style="width:20%;" name="course" type="text" {% if settings %} value={{ settings.course }} {% else %} value = "Enter Course Name" {% endif %}>
+	  <br>
+	  <br>
+	  <h6 style="font-weight: bold;">If you want to delete all records, type "I wish to delete all records"</h6>
+	  <input style="width:20%;" name="delete" type="text">
+	  <br>
+	  <br>
+	  <input class="button expand" type="submit" value="Confirm">
+	  <div>
+	</form>
+  <br>
+  <br>
+  <a href="/admin">Back</a>
+  <br>
+</div>
+{% endblock %}

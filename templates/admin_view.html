@@ -6,11 +6,18 @@
 
 	<br>
 
-	{% if message %}
-		<div class="small-12 columns">
+	
+	<div class="small-12 columns">
+		{% if message %}
 			<h3 class="text-center">{{ message }}</h3>
-		</div>
-	{% endif %}
+		{% endif %}
+		{% if settings %}
+			<h4 class="text-center">{{ settings.course }} {{ ref[settings.quarter] }} quarter {{ settings.year }}
+		{% else %}
+			<h4 class="text-center">No settings have been found for this quarter</h2>
+		{% endif %}
+	</div>
+	
 
 	<div class="small-12 columns">
 		<h6>
@@ -44,6 +51,8 @@
 			{% endfor %}
 		</table>
 		<li class="button small centered"> <a href="/admin/upload" style="color:white">Update Grades</a></li>
+		<br>
+		<li class="button small centered"> <a href="/admin/settings" style="color:white">Change Settings</a></li>
 	</div>
 </div>
 
