@@ -40,6 +40,9 @@ class GradePage(BaseHandler):
         grades =  StudentGradesModel.get_grades_by_id(str(user).split("@")[0],QUARTER,YEAR,COURSE)
         try:
             dates = map(lambda x: datetime.datetime(2000,01,01).strptime(x, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=TIME_DELTA),headers.grades)
+            if len(grades.grades) < len(headers.grades):
+                for i in range(len(headers.grades) - len(grades.grades)):
+                    grades.grades.append(0)
             grade_info = zip(map(lambda x: ((datetime.datetime(2000,01,01).strptime(x, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=TIME_DELTA)).strftime("%A, %B %d, %Y at %I:%M %p")),headers.grades),totals.grades,grades.grades,dates)
         except AttributeError:
             grade_info = None

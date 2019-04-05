@@ -56,7 +56,7 @@ class UploadGrades(BaseHandler):
                     info.grades = row[1:]
                     info.put()
                 else:
-                    if dataid not in existing_grades:
+                    if dataid not in existing_grades :
                         new_grades = StudentGrades()
                         new_grades.ucinetid = dataid
                         new_grades.quarter=QUARTER
@@ -66,8 +66,9 @@ class UploadGrades(BaseHandler):
                         student_grades.append(new_grades)
                     else:
                         current_grade = StudentGradesModel.get_grades_by_id(dataid,QUARTER,YEAR,COURSE)
-                        current_grade.grades = row[1:]
-                        current_grade.put()
+                        if "".join(current_grade.grades).rstrip('0') != "".join(row[1:]).rstrip('0') or len(current_grade.grades) > len(row[1:]):
+                            current_grade.grades = row[1:]
+                            current_grade.put()
                         
             # save student objects...
             ndb.put_multi(student_grades)
@@ -109,6 +110,10 @@ class ViewGrades(BaseHandler):
             grades = []
         else:
             grades = sorted(grades, key=(lambda x: x.ucinetid))
+            for i in range(len(grades)):
+                if len(grades[i].grades) < len(totals):
+                    for j in range(len(headers) - len(grades[i].grades)):
+                        grades[i].grades.append(0)
 
             
         template        = JINJA_ENV.get_template('/templates/admin_view.html')
